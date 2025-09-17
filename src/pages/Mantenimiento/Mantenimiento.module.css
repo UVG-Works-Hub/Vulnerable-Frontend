@@ -1,0 +1,12 @@
+.styles {
+  width: 100vw;
+  height: 100vh;
+  background: '#CCC';
+  color: '#F5F5F5';
+}
+
+nav {
+  margin: 20px;
+  display:flex;
+  justify-content: space-evenly;
+}

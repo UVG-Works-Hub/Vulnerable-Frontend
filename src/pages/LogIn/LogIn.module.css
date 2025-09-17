@@ -1,0 +1,13 @@
+.styles {
+  filter: drop-shadow(0 0 2px #000000aa);
+  background-color: white;
+  border-radius: 20px;
+  width: 400px;
+  height: 440px;
+  background: '#CCC';
+  color: black;
+  display: flex;
+  flex-direction: column;  
+  justify-content: space-betweens;;
+  align-items: center;
+}

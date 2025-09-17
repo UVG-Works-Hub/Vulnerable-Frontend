@@ -1,0 +1,3 @@
+import ShowAllHospitalesMasPacientes from './ShowAllHospitalesMasPacientes'
+
+export default ShowAllHospitalesMasPacientes

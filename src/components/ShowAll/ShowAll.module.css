@@ -1,0 +1,9 @@
+.styles {
+  display: flex;
+  flex-direction: column;
+  justify-content: normal;
+}
+
+table, th, td {
+  border:1px solid white;
+}
