@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useState } from 'react'
 import MedicoUpdateMantenimiento from '../MedicoUpdate_mantenimiento'
 import MedicoAddMantenimiento from '../MedicoAdd_mantenimiento'
 import PacienteAddMantenimiento from '../PacienteAdd_mantenimiento'
@@ -10,8 +9,7 @@ import Reportes from '../Reportes'
 import { styles } from './Mantenimiento.module.css'
 
 const Mantenimiento = () => {
-  const location = useLocation()
-  const lugarid = location.state
+  const lugarid = 2
 
   const [updateMedico, setUpdateMedico] = useState(true)
   const [addMedico, setAddMedico] = useState(false)

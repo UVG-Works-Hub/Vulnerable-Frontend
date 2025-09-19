@@ -36,13 +36,13 @@ const LogIn = () => {
 
     { jason.map((row) => {
       tipo = row.tipo
-      lugid = row.lugarid
+      lugid = 2
       nom = row.num_colegiado
       return tipo
     }) }
 
-    if (tipo === 'administrador') {
-      history.push('/mantenimiento', lugid)
+    if (tipo === 'admin') {
+      history.push('/mantenimiento')
     } else {
       history.push('/interfazmedico', { lugarid: lugid, num: nom })
     }
