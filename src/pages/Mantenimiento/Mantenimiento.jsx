@@ -7,6 +7,7 @@ import UsuarioUpdateMantenimiento from '../UsuarioUpdate_mantenimiento'
 import UsuarioAddMantenimiento from '../UsuarioAdd_mantenimiento'
 import Reportes from '../Reportes'
 import { styles } from './Mantenimiento.module.css'
+import { SignOutButton } from '@clerk/clerk-react'
 
 const Mantenimiento = () => {
   const lugarid = 2
@@ -99,6 +100,24 @@ const Mantenimiento = () => {
         <button type="submit" onClick={handleClickUpdatePaciente}>Actualizar Paciente</button>
         <button type="submit" onClick={handleClickAddPaciente}>Agregar Paciente</button>
         <button type="submit" onClick={handleClickReporteria}>Reporteria</button>
+
+        <SignOutButton redirectUrl="/login">
+          <button 
+            type="button" 
+            style={{
+              backgroundColor: '#dc2626',
+              color: 'white',
+              border: 'none',
+              padding: '8px 16px',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              marginLeft: '10px'
+            }}
+          >
+            Cerrar Sesión
+          </button>
+        </SignOutButton>
+
       </nav>
 
       {
