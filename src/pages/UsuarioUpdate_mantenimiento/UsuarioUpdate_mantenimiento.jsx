@@ -54,7 +54,7 @@ const UsuarioUpdate_mantenimiento = ({ lugid }) => {
         throw new Error(lugarIdValidation.error)
       }
 
-      const response = await Axios.get(`http://localhost:3000/api/v1/usuarios/by_lugarid/${lugarIdValidation.sanitizedValue}`)
+      const response = await Axios.get(`http://localhost:3000/api/v1/usuarios/lugar/${lugarIdValidation.sanitizedValue}`)
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -89,7 +89,9 @@ const UsuarioUpdate_mantenimiento = ({ lugid }) => {
         throw new Error(`Correo: ${correoValidation.error}`)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/usuarios/update_correo/${correoValidation.sanitizedValue}&${numColegiadoValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/usuarios/correo/${numColegiadoValidation.sanitizedValue}`, {
+        correo: correoValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -130,7 +132,9 @@ const UsuarioUpdate_mantenimiento = ({ lugid }) => {
         throw new Error(`Contraseña: ${contraseñaValidation.error || 'Mínimo 6 caracteres'}`)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/usuarios/update_password/${contraseñaValidation.sanitizedValue}&${numColegiadoValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/usuarios/contrasena/${numColegiadoValidation.sanitizedValue}`, {
+        contrasena: contraseñaValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -171,7 +175,9 @@ const UsuarioUpdate_mantenimiento = ({ lugid }) => {
         throw new Error(`Nuevo número de colegiado: ${newNumValidation.error}`)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/usuarios/update_num/${newNumValidation.sanitizedValue}&${currentNumValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/usuarios/colegiado/${currentNumValidation.sanitizedValue}`, {
+        nuevoNumeroColegiado: newNumValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')

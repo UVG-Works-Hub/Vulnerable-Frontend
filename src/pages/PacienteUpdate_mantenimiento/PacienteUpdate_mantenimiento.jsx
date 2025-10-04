@@ -43,7 +43,7 @@ const PacienteUpdate_mantenimiento = () => {
       const response = await Axios.get('http://localhost:3000/api/v1/pacientes/')
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      throw new Error(error.message || 'Hubo un error')
     }
   }
 
@@ -76,7 +76,9 @@ const PacienteUpdate_mantenimiento = () => {
         throw new Error(nameValidation.error)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/cambiar_nombre/${dpiValidation.sanitizedValue}&${nameValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/nombre/${dpiValidation.sanitizedValue}`, {
+        nombre: nameValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -118,7 +120,9 @@ const PacienteUpdate_mantenimiento = () => {
         throw new Error(apellidoValidation.error)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/cambiar_apellido/${dpiValidation.sanitizedValue}&${apellidoValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/apellido/${dpiValidation.sanitizedValue}`, {
+        apellido: apellidoValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -158,7 +162,9 @@ const PacienteUpdate_mantenimiento = () => {
         throw new Error(direccionValidation.error)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/cambiar_direccion/${dpiValidation.sanitizedValue}&${direccionValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/direccion/${dpiValidation.sanitizedValue}`, {
+        direccion: direccionValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -199,7 +205,9 @@ const PacienteUpdate_mantenimiento = () => {
         throw new Error(telefonoValidation.error)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/cambiar_telefono/${dpiValidation.sanitizedValue}&${telefonoValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/telefono/${dpiValidation.sanitizedValue}`, {
+        telefono: telefonoValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -240,7 +248,9 @@ const PacienteUpdate_mantenimiento = () => {
         throw new Error(masaValidation.error || 'Debe ser un número positivo')
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/cambiar_masa_corporal/${dpiValidation.sanitizedValue}&${masaValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/masa-corporal/${dpiValidation.sanitizedValue}`, {
+        masa_corporal: masaValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -281,7 +291,9 @@ const PacienteUpdate_mantenimiento = () => {
         throw new Error(alturaValidation.error || 'Debe ser un número positivo')
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/cambiar_altura/${dpiValidation.sanitizedValue}&${alturaValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/altura/${dpiValidation.sanitizedValue}`, {
+        altura: alturaValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -322,7 +334,9 @@ const PacienteUpdate_mantenimiento = () => {
         throw new Error(pesoValidation.error || 'Debe ser un número positivo')
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/cambiar_peso/${dpiValidation.sanitizedValue}&${pesoValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/peso/${dpiValidation.sanitizedValue}`, {
+        peso: pesoValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -362,7 +376,9 @@ const PacienteUpdate_mantenimiento = () => {
         throw new Error(adiccionValidation.error)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/cambiar_adicciones/${dpiValidation.sanitizedValue}&${adiccionValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/adicciones/${dpiValidation.sanitizedValue}`, {
+        adicciones: adiccionValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -402,7 +418,9 @@ const PacienteUpdate_mantenimiento = () => {
         throw new Error(evolucionValidation.error)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/cambiar_evoluciones/${dpiValidation.sanitizedValue}&${evolucionValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/evolucion/${dpiValidation.sanitizedValue}`, {
+        evolucion: evolucionValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -444,7 +462,9 @@ const PacienteUpdate_mantenimiento = () => {
         throw new Error(statusValidation.error)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/cambiar_estatus/${dpiValidation.sanitizedValue}&${statusValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/pacientes/status/${dpiValidation.sanitizedValue}`, {
+        status: statusValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')

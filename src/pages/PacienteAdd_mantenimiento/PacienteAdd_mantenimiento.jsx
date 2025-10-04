@@ -297,7 +297,19 @@ const PacienteAdd_mantenimiento = () => {
         throw new Error(`DPI: ${dpiValidation.error}`)
       }
 
-      const response = await Axios.post(`http://localhost:3000/api/v1/pacientes/${nombreValidation.sanitizedValue}&${apellidoValidation.sanitizedValue}&${telefonoValidation.sanitizedValue}&${direccionValidation.sanitizedValue}&${masaValidation.sanitizedValue}&${alturaValidation.sanitizedValue}&${pesoValidation.sanitizedValue}&${adiccionesValidation.sanitizedValue}&${evolucionValidation.sanitizedValue}&${statusValidation.sanitizedValue}&${dpiValidation.sanitizedValue}`)
+      const response = await Axios.post('http://localhost:3000/api/v1/pacientes/', {
+        nombre: nombreValidation.sanitizedValue,
+        apellido: apellidoValidation.sanitizedValue,
+        telefono: telefonoValidation.sanitizedValue,
+        direccion: direccionValidation.sanitizedValue,
+        masa_corporal: masaValidation.sanitizedValue,
+        altura: alturaValidation.sanitizedValue,
+        peso: pesoValidation.sanitizedValue,
+        adicciones: adiccionesValidation.sanitizedValue,
+        evolucion: evolucionValidation.sanitizedValue,
+        status: statusValidation.sanitizedValue,
+        dpi: dpiValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')

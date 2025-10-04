@@ -103,7 +103,12 @@ const UsuarioAdd_mantenimiento = ({ lugid }) => {
         throw new Error(`Lugar ID: ${lugarIdValidation.error || 'Debe ser un número positivo'}`)
       }
 
-      const response = await Axios.post(`http://localhost:3000/api/v1/usuarios/${correoValidation.sanitizedValue}&${contraseñaValidation.sanitizedValue}&${numColegiadoValidation.sanitizedValue}&${lugarIdValidation.sanitizedValue}`)
+      const response = await Axios.post('http://localhost:3000/api/v1/usuarios/', {
+        correo: correoValidation.sanitizedValue,
+        contrasena: contraseñaValidation.sanitizedValue,
+        numero_colegiado: numColegiadoValidation.sanitizedValue,
+        lugar_id: lugarIdValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')

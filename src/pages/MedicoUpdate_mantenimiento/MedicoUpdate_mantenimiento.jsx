@@ -54,7 +54,7 @@ const MedicoUpdate_mantenimiento = ({ lugarid }) => {
         throw new Error(lugarIdValidation.error)
       }
 
-      const response = await Axios.get(`http://localhost:3000/api/v1/medicos/by_lugarid/${lugarIdValidation.sanitizedValue}`)
+      const response = await Axios.get(`http://localhost:3000/api/v1/medicos/lugar/${lugarIdValidation.sanitizedValue}`)
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -90,7 +90,9 @@ const MedicoUpdate_mantenimiento = ({ lugarid }) => {
         throw new Error(`Nombre: ${nameValidation.error}`)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_nombre/${numColegiadoValidation.sanitizedValue}&${nameValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/nombre/${numColegiadoValidation.sanitizedValue}`, {
+        nombre: nameValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -132,7 +134,9 @@ const MedicoUpdate_mantenimiento = ({ lugarid }) => {
         throw new Error(`Apellido: ${apellidoValidation.error}`)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_apellido/${numColegiadoValidation.sanitizedValue}&${apellidoValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/apellido/${numColegiadoValidation.sanitizedValue}`, {
+        apellido: apellidoValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -174,7 +178,9 @@ const MedicoUpdate_mantenimiento = ({ lugarid }) => {
         throw new Error(`Dirección: ${direccionValidation.error}`)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_direccion/${numColegiadoValidation.sanitizedValue}&${direccionValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/direccion/${numColegiadoValidation.sanitizedValue}`, {
+        direccion: direccionValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -215,7 +221,9 @@ const MedicoUpdate_mantenimiento = ({ lugarid }) => {
         throw new Error(`Teléfono: ${telefonoValidation.error}`)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_telefono/${numColegiadoValidation.sanitizedValue}&${telefonoValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/telefono/${numColegiadoValidation.sanitizedValue}`, {
+        telefono: telefonoValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -257,7 +265,9 @@ const MedicoUpdate_mantenimiento = ({ lugarid }) => {
         throw new Error(`Especialidad: ${especialidadValidation.error}`)
       }
 
-      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_especialidad/${numColegiadoValidation.sanitizedValue}&${especialidadValidation.sanitizedValue}`)
+      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/especialidad/${numColegiadoValidation.sanitizedValue}`, {
+        especialidad: especialidadValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
@@ -298,7 +308,9 @@ const MedicoUpdate_mantenimiento = ({ lugarid }) => {
   //       throw new Error(`Lugar ID: ${lugarIdValidation.error || 'Debe ser un número positivo'}`)
   //     }
 
-  //     const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_lugarid/${numColegiadoValidation.sanitizedValue}&${lugarIdValidation.sanitizedValue}`)
+  //     const response = await Axios.put(`http://localhost:3000/api/v1/medicos/lugar/${numColegiadoValidation.sanitizedValue}`, {
+  //       lugar_id: lugarIdValidation.sanitizedValue
+  //     })
   //     return response.data
   //   } catch (error) {
   //     throw new Error(error.message || 'Hubo un error')

@@ -180,7 +180,15 @@ const MedicoAdd_mantenimiento = ({ lugarid }) => {
         throw new Error(`Lugar ID: ${lugarIdValidation.error || 'Debe ser un número positivo'}`)
       }
 
-      const response = await Axios.post(`http://localhost:3000/api/v1/medicos/${nombreValidation.sanitizedValue}&${apellidoValidation.sanitizedValue}&${direccionValidation.sanitizedValue}&${telefonoValidation.sanitizedValue}&${numColegiadoValidation.sanitizedValue}&${especialidadValidation.sanitizedValue}&${lugarIdValidation.sanitizedValue}`)
+      const response = await Axios.post('http://localhost:3000/api/v1/medicos/', {
+        nombre: nombreValidation.sanitizedValue,
+        apellido: apellidoValidation.sanitizedValue,
+        direccion: direccionValidation.sanitizedValue,
+        telefono: telefonoValidation.sanitizedValue,
+        numero_colegiado: numColegiadoValidation.sanitizedValue,
+        especialidad: especialidadValidation.sanitizedValue,
+        lugar_id: lugarIdValidation.sanitizedValue,
+      })
       return response.data
     } catch (error) {
       throw new Error(error.message || 'Hubo un error')
