@@ -1,6 +1,9 @@
 .all{
-  width: 100vw;
-  height: 100vh;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: '#CCC';
   color: '#F5F5F5';
 }

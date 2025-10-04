@@ -4,28 +4,60 @@ import PropTypes from 'prop-types'
 import { ShowAll } from '@components'
 
 import { styles } from './MedicoUpdate_mantenimiento.module.css'
+import {
+  validateAndSanitize, isValidNumeroColegiado,
+} from '../../utils/sanitizer'
 
 const MedicoUpdate_mantenimiento = ({ lugarid }) => {
   const [responseData, setResponseData] = useState(null)
-  const [num_colegiado, setNum_colegiado] = useState(null)
-  const [data, setData] = useState(null)
+  const [num_colegiado, setNum_colegiado] = useState('')
+  const [data, setData] = useState('')
+
+  // Estados para errores de validación
+  const [numColegiadoError, setNumColegiadoError] = useState('')
+  const [dataError, setDataError] = useState('')
 
   const handleChangeNum = (valor) => {
-    // 👇 Store the input value to local state
-    setNum_colegiado(valor.target.value)
+    const { value } = valor.target
+    setNum_colegiado(value)
+
+    // Validar número de colegiado en tiempo real
+    if (value.trim() === '') {
+      setNumColegiadoError('')
+    } else if (!isValidNumeroColegiado(value)) {
+      setNumColegiadoError('Número de colegiado inválido (1-15 dígitos)')
+    } else {
+      setNumColegiadoError('')
+    }
   }
 
   const handleChangeData = (valor) => {
-    // 👇 Store the input value to local state
-    setData(valor.target.value)
+    const { value } = valor.target
+    setData(value)
+
+    // Validar longitud en tiempo real (máximo 255 caracteres)
+    if (value.length > 255) {
+      setDataError('Máximo 255 caracteres')
+    } else {
+      setDataError('')
+    }
   }
 
   const getMedicosBylugarid = async () => {
     try {
-      const response = await Axios.get(`http://localhost:3000/api/v1/medicos/by_lugarid/${lugarid}`)
+      const lugarIdValidation = validateAndSanitize(String(lugarid), {
+        required: true,
+        maxLength: 10,
+      })
+
+      if (!lugarIdValidation.isValid) {
+        throw new Error(lugarIdValidation.error)
+      }
+
+      const response = await Axios.get(`http://localhost:3000/api/v1/medicos/by_lugarid/${lugarIdValidation.sanitizedValue}`)
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      throw new Error(error.message || 'Hubo un error')
     }
   }
 
@@ -35,87 +67,253 @@ const MedicoUpdate_mantenimiento = ({ lugarid }) => {
 
   const updateName = async () => {
     try {
-      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_nombre/${num_colegiado}&${data}`)
+      // Validar número de colegiado
+      const numColegiadoValidation = validateAndSanitize(num_colegiado, {
+        required: true,
+        type: 'numeroColegiado',
+        maxLength: 8,
+      })
+
+      if (!numColegiadoValidation.isValid) {
+        throw new Error(`Número de colegiado: ${numColegiadoValidation.error}`)
+      }
+
+      // Validar nombre (requerido, máximo 100 caracteres, seguridad estricta)
+      const nameValidation = validateAndSanitize(data, {
+        required: true,
+        maxLength: 100,
+        strictSecurity: true,
+        allowSpecialChars: true,
+      })
+
+      if (!nameValidation.isValid) {
+        throw new Error(`Nombre: ${nameValidation.error}`)
+      }
+
+      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_nombre/${numColegiadoValidation.sanitizedValue}&${nameValidation.sanitizedValue}`)
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      throw new Error(error.message || 'Hubo un error')
     }
   }
 
   const handleClickName = async () => {
-    await updateName()
-    await loadMedicos()
+    try {
+      await updateName()
+      await loadMedicos()
+      alert('Nombre actualizado exitosamente')
+    } catch (error) {
+      alert(`Error: ${error.message}`)
+    }
   }
 
   const updateApellido = async () => {
     try {
-      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_apellido/${num_colegiado}&${data}`)
+      // Validar número de colegiado
+      const numColegiadoValidation = validateAndSanitize(num_colegiado, {
+        required: true,
+        type: 'numeroColegiado',
+        maxLength: 8,
+      })
+
+      if (!numColegiadoValidation.isValid) {
+        throw new Error(`Número de colegiado: ${numColegiadoValidation.error}`)
+      }
+
+      // Validar apellido (requerido, máximo 100 caracteres, seguridad estricta)
+      const apellidoValidation = validateAndSanitize(data, {
+        required: true,
+        maxLength: 100,
+        strictSecurity: true,
+        allowSpecialChars: true,
+      })
+
+      if (!apellidoValidation.isValid) {
+        throw new Error(`Apellido: ${apellidoValidation.error}`)
+      }
+
+      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_apellido/${numColegiadoValidation.sanitizedValue}&${apellidoValidation.sanitizedValue}`)
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      throw new Error(error.message || 'Hubo un error')
     }
   }
 
   const handleClickApellido = async () => {
-    await updateApellido()
-    await loadMedicos()
+    try {
+      await updateApellido()
+      await loadMedicos()
+      alert('Apellido actualizado exitosamente')
+    } catch (error) {
+      alert(`Error: ${error.message}`)
+    }
   }
 
   const updateDireccion = async () => {
     try {
-      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_direccion/${num_colegiado}&${data}`)
+      // Validar número de colegiado
+      const numColegiadoValidation = validateAndSanitize(num_colegiado, {
+        required: true,
+        type: 'numeroColegiado',
+        maxLength: 8,
+      })
+
+      if (!numColegiadoValidation.isValid) {
+        throw new Error(`Número de colegiado: ${numColegiadoValidation.error}`)
+      }
+
+      // Validar dirección (requerida, máximo 200 caracteres, seguridad estricta)
+      const direccionValidation = validateAndSanitize(data, {
+        required: true,
+        maxLength: 200,
+        strictSecurity: true,
+        allowSpecialChars: true,
+      })
+
+      if (!direccionValidation.isValid) {
+        throw new Error(`Dirección: ${direccionValidation.error}`)
+      }
+
+      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_direccion/${numColegiadoValidation.sanitizedValue}&${direccionValidation.sanitizedValue}`)
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      throw new Error(error.message || 'Hubo un error')
     }
   }
 
   const handleClickDireccion = async () => {
-    await updateDireccion()
-    await loadMedicos()
+    try {
+      await updateDireccion()
+      await loadMedicos()
+      alert('Dirección actualizada exitosamente')
+    } catch (error) {
+      alert(`Error: ${error.message}`)
+    }
   }
 
   const updateTelefono = async () => {
     try {
-      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_telefono/${num_colegiado}&${data}`)
+      // Validar número de colegiado
+      const numColegiadoValidation = validateAndSanitize(num_colegiado, {
+        required: true,
+        type: 'numeroColegiado',
+        maxLength: 8,
+      })
+
+      if (!numColegiadoValidation.isValid) {
+        throw new Error(`Número de colegiado: ${numColegiadoValidation.error}`)
+      }
+
+      // Validar teléfono (requerido, formato de teléfono)
+      const telefonoValidation = validateAndSanitize(data, {
+        required: true,
+        type: 'phone',
+        maxLength: 15,
+      })
+
+      if (!telefonoValidation.isValid) {
+        throw new Error(`Teléfono: ${telefonoValidation.error}`)
+      }
+
+      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_telefono/${numColegiadoValidation.sanitizedValue}&${telefonoValidation.sanitizedValue}`)
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      throw new Error(error.message || 'Hubo un error')
     }
   }
 
   const handleClickTelefono = async () => {
-    await updateTelefono()
-    await loadMedicos()
+    try {
+      await updateTelefono()
+      await loadMedicos()
+      alert('Teléfono actualizado exitosamente')
+    } catch (error) {
+      alert(`Error: ${error.message}`)
+    }
   }
 
   const updateEspecialidad = async () => {
     try {
-      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_especialidad/${num_colegiado}&${data}`)
+      // Validar número de colegiado
+      const numColegiadoValidation = validateAndSanitize(num_colegiado, {
+        required: true,
+        type: 'numeroColegiado',
+        maxLength: 8,
+      })
+
+      if (!numColegiadoValidation.isValid) {
+        throw new Error(`Número de colegiado: ${numColegiadoValidation.error}`)
+      }
+
+      // Validar especialidad (requerida, máximo 100 caracteres, seguridad estricta)
+      const especialidadValidation = validateAndSanitize(data, {
+        required: true,
+        maxLength: 100,
+        strictSecurity: true,
+        allowSpecialChars: true,
+      })
+
+      if (!especialidadValidation.isValid) {
+        throw new Error(`Especialidad: ${especialidadValidation.error}`)
+      }
+
+      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_especialidad/${numColegiadoValidation.sanitizedValue}&${especialidadValidation.sanitizedValue}`)
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      throw new Error(error.message || 'Hubo un error')
     }
   }
 
   const handleClickEspecialidad = async () => {
-    await updateEspecialidad()
-    await loadMedicos()
-  }
-
-  const updateLugarId = async () => {
     try {
-      const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_lugarid/${num_colegiado}&${data}`)
-      return response.data
+      await updateEspecialidad()
+      await loadMedicos()
+      alert('Especialidad actualizada exitosamente')
     } catch (error) {
-      return 'Hubo un error'
+      alert(`Error: ${error.message}`)
     }
   }
 
-  const handleClickLugarId = async () => {
-    await updateLugarId()
-    await loadMedicos()
-  }
+  // const updateLugarId = async () => {
+  //   try {
+  //     // Validar número de colegiado
+  //     const numColegiadoValidation = validateAndSanitize(num_colegiado, {
+  //       required: true,
+  //       type: 'numeroColegiado',
+  //       maxLength: 8,
+  //     })
+
+  //     if (!numColegiadoValidation.isValid) {
+  //       throw new Error(`Número de colegiado: ${numColegiadoValidation.error}`)
+  //     }
+
+  //     // Validar lugar ID (número positivo, máximo 10 caracteres)
+  //     const lugarIdValidation = validateAndSanitize(data, {
+  //       required: true,
+  //       maxLength: 10,
+  //       customValidator: (value) => { return !Number.isNaN(value) && parseInt(value, 10) > 0 },
+  //     })
+
+  //     if (!lugarIdValidation.isValid) {
+  //       throw new Error(`Lugar ID: ${lugarIdValidation.error || 'Debe ser un número positivo'}`)
+  //     }
+
+  //     const response = await Axios.put(`http://localhost:3000/api/v1/medicos/cambiar_lugarid/${numColegiadoValidation.sanitizedValue}&${lugarIdValidation.sanitizedValue}`)
+  //     return response.data
+  //   } catch (error) {
+  //     throw new Error(error.message || 'Hubo un error')
+  //   }
+  // }
+
+  // const handleClickLugarId = async () => {
+  //   try {
+  //     await updateLugarId()
+  //     await loadMedicos()
+  //     alert('Lugar ID actualizado exitosamente')
+  //   } catch (error) {
+  //     alert(`Error: ${error.message}`)
+  //   }
+  // }
 
   useEffect(() => {
     loadMedicos()
@@ -128,47 +326,109 @@ const MedicoUpdate_mantenimiento = ({ lugarid }) => {
   return (
     <div className={styles}>
       <ShowAll json={responseData} />
-      <h2>Cambiar nombre</h2>
-      <input type="text" placeholder="Escriba el numero de colegiado" onChange={handleChangeNum} />
-      <br />
-      <input type="text" placeholder="Escriba el nuevo nombre" onChange={handleChangeData} />
-      <br />
-      <button type="submit" onClick={handleClickName}>Cambiar</button>
 
-      <h2>Cambiar apellido</h2>
-      <input type="text" placeholder="Escriba el numero de colegiado" onChange={handleChangeNum} />
       <br />
-      <input type="text" placeholder="Escriba el nuevo apellido" onChange={handleChangeData} />
-      <br />
-      <button type="submit" onClick={handleClickApellido}>Cambiar</button>
+      <h2>Número de colegiado *</h2>
+      <input
+        type="text"
+        placeholder="Número de colegiado (1-15 dígitos)"
+        value={num_colegiado}
+        onChange={handleChangeNum}
+        maxLength="8"
+        pattern="\d{1,15}"
+        style={{ borderColor: numColegiadoError ? 'red' : 'inherit' }}
+      />
+      {numColegiadoError && <span style={{ color: 'red', fontSize: '12px' }}>{numColegiadoError}</span>}
 
-      <h2>Cambiar direccion</h2>
-      <input type="text" placeholder="Escriba el numero de colegiado" onChange={handleChangeNum} />
+      <h2>Cambiar nombre *</h2>
       <br />
-      <input type="text" placeholder="Escriba la nueva direccion" onChange={handleChangeData} />
+      <input
+        type="text"
+        placeholder="Escriba el nuevo nombre"
+        value={data}
+        onChange={handleChangeData}
+        maxLength="100"
+        style={{ borderColor: dataError ? 'red' : 'inherit' }}
+      />
+      {dataError && <span style={{ color: 'red', fontSize: '12px' }}>{dataError}</span>}
       <br />
-      <button type="submit" onClick={handleClickDireccion}>Cambiar</button>
+      <button type="submit" onClick={handleClickName}>Cambiar Nombre</button>
 
-      <h2>Cambiar telefono</h2>
-      <input type="text" placeholder="Escriba el numero de colegiado" onChange={handleChangeNum} />
+      <h2>Cambiar apellido *</h2>
       <br />
-      <input type="text" placeholder="Escriba el nuevo telefono" onChange={handleChangeData} />
+      <input
+        type="text"
+        placeholder="Escriba el nuevo apellido"
+        value={data}
+        onChange={handleChangeData}
+        maxLength="100"
+        style={{ borderColor: dataError ? 'red' : 'inherit' }}
+      />
+      {dataError && <span style={{ color: 'red', fontSize: '12px' }}>{dataError}</span>}
       <br />
-      <button type="submit" onClick={handleClickTelefono}>Cambiar</button>
+      <button type="submit" onClick={handleClickApellido}>Cambiar Apellido</button>
 
-      <h2>Cambiar especialidad</h2>
-      <input type="text" placeholder="Escriba el numero de colegiado" onChange={handleChangeNum} />
+      <h2>Cambiar dirección *</h2>
       <br />
-      <input type="text" placeholder="Escriba la nueva especialidad" onChange={handleChangeData} />
+      <textarea
+        placeholder="Escriba la nueva dirección"
+        value={data}
+        onChange={handleChangeData}
+        maxLength="200"
+        rows="3"
+        style={{ borderColor: dataError ? 'red' : 'inherit' }}
+      />
+      {dataError && <span style={{ color: 'red', fontSize: '12px' }}>{dataError}</span>}
       <br />
-      <button type="submit" onClick={handleClickEspecialidad}>Cambiar</button>
+      <button type="submit" onClick={handleClickDireccion}>Cambiar Dirección</button>
 
-      <h2>Cambiar lugarid</h2>
-      <input type="text" placeholder="Escriba el numero de colegiado" onChange={handleChangeNum} />
+      <h2>Cambiar teléfono *</h2>
       <br />
-      <input type="text" placeholder="Escriba la nueva id del lugar" onChange={handleChangeData} />
+      <input
+        type="tel"
+        placeholder="Escriba el nuevo teléfono"
+        value={data}
+        onChange={handleChangeData}
+        maxLength="15"
+        pattern="[0-9+\-\s()]{10,15}"
+        style={{ borderColor: dataError ? 'red' : 'inherit' }}
+      />
+      {dataError && <span style={{ color: 'red', fontSize: '12px' }}>{dataError}</span>}
       <br />
-      <button type="submit" onClick={handleClickLugarId}>Cambiar</button>
+      <button type="submit" onClick={handleClickTelefono}>Cambiar Teléfono</button>
+
+      <h2>Cambiar especialidad *</h2>
+      <br />
+      <input
+        type="text"
+        placeholder="Escriba la nueva especialidad"
+        value={data}
+        onChange={handleChangeData}
+        maxLength="100"
+        style={{ borderColor: dataError ? 'red' : 'inherit' }}
+      />
+      {dataError && <span style={{ color: 'red', fontSize: '12px' }}>{dataError}</span>}
+      <br />
+      <button type="submit" onClick={handleClickEspecialidad}>Cambiar Especialidad</button>
+
+      {/* <h2>Cambiar lugar ID *</h2>
+      <br />
+      <input
+        type="number"
+        placeholder="Escriba el nuevo ID del lugar"
+        value={data}
+        onChange={handleChangeData}
+        maxLength="10"
+        min="1"
+        style={{ borderColor: dataError ? 'red' : 'inherit' }}
+      />
+      {dataError && <span style={{ color: 'red', fontSize: '12px' }}>{dataError}</span>}
+      <br />
+      <button type="submit" onClick={handleClickLugarId}>Cambiar Lugar ID</button> */}
+
+      <p style={{ fontSize: '12px', color: '#666', marginTop: '20px' }}>
+        * Campos requeridos
+      </p>
     </div>
   )
 }

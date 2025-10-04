@@ -11,6 +11,7 @@ import {
   ShowAllVisitas,
 } from '../../components'
 import { styles, inputs, bloques } from './Expediente.module.css'
+import { sanitizeHTML } from '../../utils/sanitizer'
 
 const Expediente = () => {
   const [responseData, setResponseData] = useState(null)
@@ -23,95 +24,67 @@ const Expediente = () => {
   const [inputText, setInputText] = useState('')
   const [show, setShow] = useState(false)
 
-  const getPacientesByDPI = async () => {
+  const getPacientesByDPI = async (dpi) => {
     try {
-      const response = await Axios.get(`http://localhost:3000/api/v1/pacientes/${inputText}`)
+      const response = await Axios.get(`http://localhost:3000/api/v1/pacientes/${dpi}`)
       return response.data
     } catch (error) {
       return 'Hubo un error'
     }
   }
 
-  const loadPacienteByDPI = async () => {
-    setResponseData(await getPacientesByDPI())
-  }
-
-  const getVisitas = async () => {
+  const getVisitas = async (dpi) => {
     try {
-      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_visitas_especific/${inputText}`)
+      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_visitas_especific/${dpi}`)
       return response.data
     } catch (error) {
       return 'Hubo un error'
     }
   }
 
-  const loadVisitas = async () => {
-    setVisitas(await getVisitas())
-  }
-
-  const getExamenes = async () => {
+  const getExamenes = async (dpi) => {
     try {
-      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_examenes/${inputText}`)
+      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_examenes/${dpi}`)
       return response.data
     } catch (error) {
       return 'Hubo un error'
     }
   }
 
-  const loadExamenes = async () => {
-    setExamenes(await getExamenes())
-  }
-
-  const getCirugias = async () => {
+  const getCirugias = async (dpi) => {
     try {
-      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_cirugias/${inputText}`)
+      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_cirugias/${dpi}`)
       return response.data
     } catch (error) {
       return 'Hubo un error'
     }
   }
 
-  const loadCirugias = async () => {
-    setCirugias(await getCirugias())
-  }
-
-  const getMedicos = async () => {
+  const getMedicos = async (dpi) => {
     try {
-      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_medicosOfPaciente/${inputText}`)
+      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_medicosOfPaciente/${dpi}`)
       return response.data
     } catch (error) {
       return 'Hubo un error'
     }
   }
 
-  const loadMedicos = async () => {
-    setMedicos(await getMedicos())
-  }
-
-  const getMedicamentos = async () => {
+  const getMedicamentos = async (dpi) => {
     try {
-      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_medicamentosYevolucion/${inputText}`)
+      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_medicamentosYevolucion/${dpi}`)
       return response.data
     } catch (error) {
       return 'Hubo un error'
     }
   }
 
-  const loadMedicamentos = async () => {
-    setMedicamentos(await getMedicamentos())
-  }
-
-  const getLugaresVisitados = async () => {
+  const getLugaresVisitados = async (dpi) => {
     try {
-      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_lugares_visitados/${inputText}`)
+      const response = await Axios.get(`http://localhost:3000/api/v1/visitas/get_lugares_visitados/${dpi}`)
       return response.data
     } catch (error) {
       return 'Hubo un error'
     }
-  }
-
-  const loadLugaresVisitados = async () => {
-    setLugaresVisitados(await getLugaresVisitados())
   }
 
   const handleChange = (valor) => {
@@ -120,13 +93,25 @@ const Expediente = () => {
   }
 
   const handleClick = async () => {
-    await loadPacienteByDPI()
-    await loadVisitas()
-    await loadExamenes()
-    await loadCirugias()
-    await loadMedicos()
-    await loadMedicamentos()
-    await loadLugaresVisitados()
+    // Sanitizar el DPI antes de usarlo en consultas
+    const sanitizedDPI = sanitizeHTML(inputText)
+
+    // Actualizar todas las funciones para usar el DPI sanitizado
+    const pacienteData = await getPacientesByDPI(sanitizedDPI)
+    const visitasData = await getVisitas(sanitizedDPI)
+    const examenesData = await getExamenes(sanitizedDPI)
+    const cirugiasData = await getCirugias(sanitizedDPI)
+    const medicosData = await getMedicos(sanitizedDPI)
+    const medicamentosData = await getMedicamentos(sanitizedDPI)
+    const lugaresData = await getLugaresVisitados(sanitizedDPI)
+
+    setResponseData(pacienteData)
+    setVisitas(visitasData)
+    setExamenes(examenesData)
+    setCirugias(cirugiasData)
+    setMedicos(medicosData)
+    setMedicamentos(medicamentosData)
+    setLugaresVisitados(lugaresData)
 
     setShow(true)
   }

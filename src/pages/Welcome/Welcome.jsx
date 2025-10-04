@@ -10,12 +10,12 @@ import {
 
 const Welcome = () => {
   return (
-    <dir className={all}>
+    <div className={all}>
       <div className={styles}>
         <Link to="/login" className={login}>Log In</Link>
         <Link to="/signin" className={signin}>Sign In</Link>
       </div>
-    </dir>
+    </div>
   )
 }
 
