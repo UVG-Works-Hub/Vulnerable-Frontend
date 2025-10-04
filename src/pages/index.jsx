@@ -2,7 +2,7 @@ import React from 'react'
 import {
   Switch,
   Route,
-  Redirect
+  Redirect,
 } from 'react-router-dom'
 
 import LogIn from './LogIn'
@@ -34,7 +34,7 @@ const Page = () => {
       </Route>
       <Route path="/mantenimiento">
 
-          <Mantenimiento />
+        <Mantenimiento />
       </Route>
       <Route path="/welcome">
         <ProtectedRoute>
