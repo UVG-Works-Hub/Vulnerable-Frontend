@@ -33,8 +33,9 @@ const Page = () => {
         </ProtectedRoute>
       </Route>
       <Route path="/mantenimiento">
-
-        <Mantenimiento />
+        <ProtectedRoute>
+          <Mantenimiento />
+        </ProtectedRoute>
       </Route>
       <Route path="/welcome">
         <ProtectedRoute>
