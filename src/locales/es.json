@@ -1,0 +1,9 @@
+{
+  "signIn": {
+    "title": "Iniciar Sesión",
+    "subtitle": "Accede a tu cuenta",
+    "emailAddress": "Correo electrónico",
+    "password": "Contraseña",
+    "continueButton": "Continuar"
+  }
+}

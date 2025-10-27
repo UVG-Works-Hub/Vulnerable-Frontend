@@ -1,44 +1,45 @@
-import { SignIn, useUser } from '@clerk/clerk-react'
-import { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { SignIn, useUser } from "@clerk/clerk-react";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import localization from "../../locales/es.json";
 
 const LogIn = () => {
-  const { user, isSignedIn } = useUser()
-  const history = useHistory()
+  const { user, isSignedIn } = useUser();
+  const history = useHistory();
 
   useEffect(() => {
     if (isSignedIn && user) {
-      const userRole = user.publicMetadata?.role
-      
-      if (userRole === 'admin') {
-        history.push('/mantenimiento')
+      const userRole = user.publicMetadata?.role;
+
+      if (userRole === "admin") {
+        history.push("/mantenimiento");
       } else {
-        history.push('/interfazmedico')
+        history.push("/interfazmedico");
       }
     }
-  }, [isSignedIn, user, history])
+  }, [isSignedIn, user, history]);
 
   return (
-    <SignIn 
+    <SignIn
       appearance={{
         elements: {
           rootBox: "mx-auto",
-          card: "shadow-lg border rounded-lg p-6"
-        }
+          card: "shadow-lg border rounded-lg p-6",
+        },
       }}
       localization={{
         signIn: {
           start: {
-            title: "Iniciar Sesión",
-            subtitle: "Accede a tu cuenta"
-          }
+            title: localization.signIn.title,
+            subtitle: localization.signIn.subtitle,
+          },
         },
-        formFieldLabel__emailAddress: "Correo electrónico",
-        formFieldLabel__password: "Contraseña",
-        formButtonPrimary: "Continuar"
+        formFieldLabel__emailAddress: localization.signIn.emailAddress,
+        formFieldLabel__password: localization.signIn.password,
+        formButtonPrimary: localization.signIn.continueButton,
       }}
     />
-  )
-}
+  );
+};
 
-export default LogIn
+export default LogIn;
