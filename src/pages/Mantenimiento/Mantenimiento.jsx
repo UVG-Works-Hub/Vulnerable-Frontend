@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react'
 import MedicoUpdateMantenimiento from '../MedicoUpdate_mantenimiento'
 import MedicoAddMantenimiento from '../MedicoAdd_mantenimiento'
