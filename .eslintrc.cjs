@@ -11,8 +11,8 @@ module.exports = {
   },
   plugins: ["react"],
   rules: {
-    semi: ["always"],
-    quotes: ["error", "double", { avoidEscape: true }],
+    semi: ["error", "always"],
+    quotes: ["error", "double"],
     camelcase: "off",
     "no-lone-blocks": 0,
     "react/react-in-jsx-scope": "off",
