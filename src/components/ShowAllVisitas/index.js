@@ -1,3 +1,1 @@
-import ShowAllVisitas from './ShowAllVisitas'
-
-export default ShowAllVisitas
+export { default } from "./ShowAllVisitas";

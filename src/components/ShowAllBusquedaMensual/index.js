@@ -1,3 +1,1 @@
-import ShowAllBusquedaMensual from './ShowAllBusquedaMensual'
-
-export default ShowAllBusquedaMensual
+export { default } from "./ShowAllBusquedaMensual";

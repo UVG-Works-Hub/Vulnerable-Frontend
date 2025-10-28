@@ -1,2 +1,1 @@
-import PacienteAdd_mantenimiento from './PacienteAdd_mantenimiento'
-export default PacienteAdd_mantenimiento
+export { default } from "./PacienteAdd_mantenimiento";

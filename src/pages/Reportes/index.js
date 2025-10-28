@@ -1,3 +1,1 @@
-import Reportes from './Reportes'
-
-export default Reportes
+export { default } from "./Reportes";

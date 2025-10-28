@@ -1,3 +1,1 @@
-import ShowAll from './ShowAll'
-
-export default ShowAll
+export { default } from "./ShowAll";

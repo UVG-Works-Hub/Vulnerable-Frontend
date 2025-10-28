@@ -1,2 +1,1 @@
-import UsuarioAdd_mantenimiento from './UsuarioAdd_mantenimiento'
-export default UsuarioAdd_mantenimiento
+export { default } from "./UsuarioAdd_mantenimiento";

@@ -1,3 +1,1 @@
-import ShowAllEnfermedadesMortales from './ShowAllEnfermedadesMortales'
-
-export default ShowAllEnfermedadesMortales
+export { default } from "./ShowAllEnfermedadesMortales";

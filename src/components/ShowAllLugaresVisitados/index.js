@@ -1,3 +1,1 @@
-import ShowAllLugaresVisitados from './ShowAllLugaresVisitados'
-
-export default ShowAllLugaresVisitados
+export { default } from "./ShowAllLugaresVisitados";

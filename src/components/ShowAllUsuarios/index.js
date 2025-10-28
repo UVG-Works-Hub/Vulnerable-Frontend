@@ -1,3 +1,1 @@
-import ShowAllUsuarios from './ShowAllUsuarios'
-
-export default ShowAllUsuarios
+export { default } from "./ShowAllUsuarios";

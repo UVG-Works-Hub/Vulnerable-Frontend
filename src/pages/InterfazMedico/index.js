@@ -1,3 +1,1 @@
-import InterfazMedico from './InterfazMedico'
-
-export default InterfazMedico
+export { default } from "./InterfazMedico";

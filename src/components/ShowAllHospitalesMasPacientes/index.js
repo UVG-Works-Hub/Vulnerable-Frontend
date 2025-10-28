@@ -1,3 +1,1 @@
-import ShowAllHospitalesMasPacientes from './ShowAllHospitalesMasPacientes'
-
-export default ShowAllHospitalesMasPacientes
+export { default } from "./ShowAllHospitalesMasPacientes";

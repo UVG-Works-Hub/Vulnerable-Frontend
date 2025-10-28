@@ -1,3 +1,1 @@
-import ShowAllExamenes from './ShowAllExamenes'
-
-export default ShowAllExamenes
+export { default } from "./ShowAllExamenes";

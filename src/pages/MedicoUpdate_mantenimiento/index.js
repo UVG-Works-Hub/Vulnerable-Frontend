@@ -1,2 +1,1 @@
-import MedicoUpdate_mantenimiento from './MedicoUpdate_mantenimiento'
-export default MedicoUpdate_mantenimiento
+export { default } from "./MedicoUpdate_mantenimiento";
