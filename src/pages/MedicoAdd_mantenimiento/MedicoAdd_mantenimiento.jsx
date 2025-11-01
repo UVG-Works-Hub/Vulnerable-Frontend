@@ -66,12 +66,10 @@ const MedicoAdd_mantenimiento = ({ lugarid }) => {
     setTelefono(value);
 
     // Validar teléfono en tiempo real
-    if (value.trim() === "") {
+    if (value.trim() === "" || isValidPhone(value)) {
       setTelefonoError("");
-    } else if (!isValidPhone(value)) {
-      setTelefonoError("Teléfono inválido");
     } else {
-      setTelefonoError("");
+      setTelefonoError("Teléfono inválido");
     }
   };
 
@@ -80,12 +78,10 @@ const MedicoAdd_mantenimiento = ({ lugarid }) => {
     setNum_colegiado(value);
 
     // Validar número de colegiado en tiempo real
-    if (value.trim() === "") {
+    if (value.trim() === "" || isValidNumeroColegiado(value)) {
       setNumColegiadoError("");
-    } else if (!isValidNumeroColegiado(value)) {
-      setNumColegiadoError("Número de colegiado inválido (4-8 dígitos)");
     } else {
-      setNumColegiadoError("");
+      setNumColegiadoError("Número de colegiado inválido (4-8 dígitos)");
     }
   };
 

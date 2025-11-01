@@ -23,12 +23,10 @@ const MedicoUpdate_mantenimiento = ({ lugarid }) => {
     setNum_colegiado(value);
 
     // Validar número de colegiado en tiempo real
-    if (value.trim() === "") {
+    if (value.trim() === "" || isValidNumeroColegiado(value)) {
       setNumColegiadoError("");
-    } else if (!isValidNumeroColegiado(value)) {
-      setNumColegiadoError("Número de colegiado inválido (1-15 dígitos)");
     } else {
-      setNumColegiadoError("");
+      setNumColegiadoError("Número de colegiado inválido (1-15 dígitos)");
     }
   };
 

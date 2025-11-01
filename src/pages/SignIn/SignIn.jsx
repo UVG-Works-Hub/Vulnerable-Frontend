@@ -30,13 +30,13 @@ const SignIn = () => {
     try {
       const response = await Axios.get(`http://localhost:3000/api/v1/usuarios/get_lugarid/${num_colegiado}`)
       const jason = response.data
-      { jason.map((row) => {
+      jason.forEach((row) => {
         lugid = row.lugarid
-        return lugid
-      }) }
+      })
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      console.error('Error fetching user lugar id:', error)
+      throw error
     }
   }
 
@@ -45,14 +45,20 @@ const SignIn = () => {
       const response = await Axios.post(`http://localhost:3000/api/v1/usuarios/${correo}&${contraseña}&${num_colegiado}&${lugid}`)
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      console.error('Error adding user:', error)
+      throw error
     }
   }
 
   const handleClick = async () => {
-    await getUserLugarid()
-    await addUser()
-    history.push('/interfazmedico', { lugarid: lugid, num: num_colegiado })
+    try {
+      await getUserLugarid()
+      await addUser()
+      history.push('/interfazmedico', { lugarid: lugid, num: num_colegiado })
+    } catch (error) {
+      console.error('Error during sign in:', error)
+      alert('Error durante el registro. Por favor, intente nuevamente.')
+    }
   }
 
   return (

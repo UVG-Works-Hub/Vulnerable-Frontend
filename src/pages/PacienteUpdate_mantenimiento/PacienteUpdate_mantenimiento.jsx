@@ -17,12 +17,10 @@ const PacienteUpdate_mantenimiento = () => {
     setDPI(value);
 
     // Validar DPI en tiempo real
-    if (value.trim() === "") {
+    if (value.trim() === "" || isValidDPI(value)) {
       setDpiError("");
-    } else if (!isValidDPI(value)) {
-      setDpiError("DPI debe tener exactamente 13 dígitos");
     } else {
-      setDpiError("");
+      setDpiError("DPI debe tener exactamente 13 dígitos");
     }
   };
 

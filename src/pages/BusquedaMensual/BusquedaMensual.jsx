@@ -25,7 +25,7 @@ const BusquedaMensual = ({ lugarid }) => {
     try {
       setResponseData(await getReporte());
     } catch (error) {
-      setResponseData("Hubo un problema al cargar el reporte");
+      throw new Error("Hubo un problema al cargar el reporte");
     }
   };
 

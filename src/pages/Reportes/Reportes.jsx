@@ -21,12 +21,18 @@ const Reportes = () => {
       const response = await Axios.get('http://localhost:3000/api/v1/queries/top_medicos/')
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      console.error('Error fetching top doctors:', error)
+      throw error
     }
   }
 
   const loadTopMedicos = async () => {
-    setResponseData(await getTopMedicos())
+    try {
+      setResponseData(await getTopMedicos())
+    } catch (error) {
+      console.error('Failed to load top doctors:', error)
+      setResponseData(null)
+    }
   }
 
   const getTopEnfermedades = async () => {
@@ -34,12 +40,18 @@ const Reportes = () => {
       const response = await Axios.get('http://localhost:3000/api/v1/queries/enfermedades_mortales/')
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      console.error('Error fetching deadly diseases:', error)
+      throw error
     }
   }
 
   const loadTopEnfermedades = async () => {
-    setResponseData1(await getTopEnfermedades())
+    try {
+      setResponseData1(await getTopEnfermedades())
+    } catch (error) {
+      console.error('Failed to load deadly diseases:', error)
+      setResponseData1(null)
+    }
   }
 
   const getTopPacientes = async () => {
@@ -47,12 +59,18 @@ const Reportes = () => {
       const response = await Axios.get('http://localhost:3000/api/v1/queries/get_pacientesvisitas/')
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      console.error('Error fetching top patients:', error)
+      throw error
     }
   }
 
   const loadTopPacientes = async () => {
-    setResponseData2(await getTopPacientes())
+    try {
+      setResponseData2(await getTopPacientes())
+    } catch (error) {
+      console.error('Failed to load top patients:', error)
+      setResponseData2(null)
+    }
   }
 
   const getTopHospitales = async () => {
@@ -60,20 +78,31 @@ const Reportes = () => {
       const response = await Axios.get('http://localhost:3000/api/v1/queries/top_hospitales/')
       return response.data
     } catch (error) {
-      return 'Hubo un error'
+      console.error('Error fetching top hospitals:', error)
+      throw error
     }
   }
 
   const loadTopHospitales = async () => {
-    setResponseData3(await getTopHospitales())
+    try {
+      setResponseData3(await getTopHospitales())
+    } catch (error) {
+      console.error('Failed to load top hospitals:', error)
+      setResponseData3(null)
+    }
   }
 
   const handleClick = async () => {
-    await loadTopMedicos()
-    await loadTopEnfermedades()
-    await loadTopPacientes()
-    await loadTopHospitales()
-    setShow(true)
+    try {
+      await loadTopMedicos()
+      await loadTopEnfermedades()
+      await loadTopPacientes()
+      await loadTopHospitales()
+      setShow(true)
+    } catch (error) {
+      console.error('Error loading reports:', error)
+      alert('Error al cargar los reportes. Por favor, intente nuevamente.')
+    }
   }
 
   return (
