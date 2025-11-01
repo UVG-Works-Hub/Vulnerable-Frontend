@@ -25,13 +25,19 @@ const BusquedaMensual = ({ lugarid }) => {
     try {
       setResponseData(await getReporte());
     } catch (error) {
-      throw new Error("Hubo un problema al cargar el reporte");
+      console.error("Failed to load report:", error);
+      setResponseData(null);
     }
   };
 
   const handleClick = async () => {
-    await loadReporte();
-    setShow(true);
+    try {
+      await loadReporte();
+      setShow(true);
+    } catch (error) {
+      console.error("Error during report loading:", error);
+      alert("Error al cargar el reporte. Por favor, intente nuevamente.");
+    }
   };
   return (
     <div className={styles}>

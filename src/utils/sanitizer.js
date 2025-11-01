@@ -180,6 +180,50 @@ export const isAlphanumericText = (value, allowSpecialChars = true) => {
 };
 
 /**
+ * Valida el tipo de dato según la opción especificada
+ * @param {string} value - Valor a validar
+ * @param {string} type - Tipo de validación
+ * @returns {Object} - {isValid: boolean, error: string}
+ */
+const validateType = (value, type) => {
+  if (type === "email" && !isValidEmail(value)) {
+    return { isValid: false, error: "Email inválido" };
+  }
+
+  if (type === "phone" && !isValidPhone(value)) {
+    return { isValid: false, error: "Teléfono inválido" };
+  }
+
+  if (type === "dpi" && !isValidDPI(value)) {
+    return { isValid: false, error: "DPI debe tener 13 dígitos" };
+  }
+
+  if (type === "numeroColegiado" && !isValidNumeroColegiado(value)) {
+    return { isValid: false, error: "Número de colegiado inválido" };
+  }
+
+  return { isValid: true, error: "" };
+};
+
+/**
+ * Valida seguridad estricta del valor
+ * @param {string} value - Valor a validar
+ * @param {boolean} allowSpecialChars - Si permitir caracteres especiales
+ * @returns {Object} - {isValid: boolean, error: string}
+ */
+const validateStrictSecurity = (value, allowSpecialChars) => {
+  if (!isSafeText(value)) {
+    return { isValid: false, error: "Contenido no permitido (código JavaScript detectado)" };
+  }
+
+  if (!isAlphanumericText(value, allowSpecialChars)) {
+    return { isValid: false, error: "Solo se permiten letras, números y espacios" };
+  }
+
+  return { isValid: true, error: "" };
+};
+
+/**
  * Función completa de validación y sanitización para formularios
  * @param {string} value - Valor a procesar
  * @param {Object} options - Opciones de validación
@@ -222,54 +266,25 @@ export const validateAndSanitize = (value, options = {}) => {
     };
   }
 
-  // Validación de seguridad estricta (bloquea código JavaScript)
-  if (strictSecurity && !isSafeText(value)) {
-    return {
-      isValid: false,
-      sanitizedValue: "",
-      error: "Contenido no permitido (código JavaScript detectado)",
-    };
-  }
-
-  // Validación de caracteres alfanuméricos estricta
-  if (strictSecurity && !isAlphanumericText(value, allowSpecialChars)) {
-    return {
-      isValid: false,
-      sanitizedValue: "",
-      error: "Solo se permiten letras, números y espacios",
-    };
+  // Validación de seguridad estricta
+  if (strictSecurity) {
+    const securityValidation = validateStrictSecurity(value, allowSpecialChars);
+    if (!securityValidation.isValid) {
+      return {
+        isValid: false,
+        sanitizedValue: "",
+        error: securityValidation.error,
+      };
+    }
   }
 
   // Validar según tipo
-  if (type === "email" && !isValidEmail(value)) {
+  const typeValidation = validateType(value, type);
+  if (!typeValidation.isValid) {
     return {
       isValid: false,
       sanitizedValue: "",
-      error: "Email inválido",
-    };
-  }
-
-  if (type === "phone" && !isValidPhone(value)) {
-    return {
-      isValid: false,
-      sanitizedValue: "",
-      error: "Teléfono inválido",
-    };
-  }
-
-  if (type === "dpi" && !isValidDPI(value)) {
-    return {
-      isValid: false,
-      sanitizedValue: "",
-      error: "DPI debe tener 13 dígitos",
-    };
-  }
-
-  if (type === "numeroColegiado" && !isValidNumeroColegiado(value)) {
-    return {
-      isValid: false,
-      sanitizedValue: "",
-      error: "Número de colegiado inválido",
+      error: typeValidation.error,
     };
   }
 
