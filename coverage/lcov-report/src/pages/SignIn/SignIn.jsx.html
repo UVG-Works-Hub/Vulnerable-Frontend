@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.33% </span>
+                <span class="strong">2.94% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/30</span>
+                <span class='fraction'>1/34</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.33% </span>
+                <span class="strong">2.94% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/30</span>
+                <span class='fraction'>1/34</span>
             </div>
         
             
@@ -138,7 +138,13 @@
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,19 +178,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -193,6 +190,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -245,13 +257,13 @@ const SignIn = <span class="fstat-no" title="function not covered" >()</span> =&
 <span class="cstat-no" title="statement not covered" >    try {</span>
       const response = <span class="cstat-no" title="statement not covered" >await Axios.get(`http://localhost:3000/api/v1/usuarios/get_lugarid/${num_colegiado}`)</span>
       const jason = <span class="cstat-no" title="statement not covered" >response.data</span>
-      { <span class="cstat-no" title="statement not covered" >jason.map(<span class="fstat-no" title="function not covered" >(r</span>ow) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      for (const row of jason) {</span>
 <span class="cstat-no" title="statement not covered" >        lugid = row.lugarid</span>
-<span class="cstat-no" title="statement not covered" >        return lugid</span>
-      }) }
+      }
 <span class="cstat-no" title="statement not covered" >      return response.data</span>
     } catch (error) {
-<span class="cstat-no" title="statement not covered" >      return 'Hubo un error'</span>
+<span class="cstat-no" title="statement not covered" >      console.error('Error fetching user lugar id:', error)</span>
+<span class="cstat-no" title="statement not covered" >      throw error</span>
     }
   }
 &nbsp;
@@ -260,14 +272,20 @@ const SignIn = <span class="fstat-no" title="function not covered" >()</span> =&
       const response = <span class="cstat-no" title="statement not covered" >await Axios.post(`http://localhost:3000/api/v1/usuarios/${correo}&amp;${contraseña}&amp;${num_colegiado}&amp;${lugid}`)</span>
 <span class="cstat-no" title="statement not covered" >      return response.data</span>
     } catch (error) {
-<span class="cstat-no" title="statement not covered" >      return 'Hubo un error'</span>
+<span class="cstat-no" title="statement not covered" >      console.error('Error adding user:', error)</span>
+<span class="cstat-no" title="statement not covered" >      throw error</span>
     }
   }
 &nbsp;
   const handleClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    await getUserLugarid()</span>
-<span class="cstat-no" title="statement not covered" >    await addUser()</span>
-<span class="cstat-no" title="statement not covered" >    history.push('/interfazmedico', { lugarid: lugid, num: num_colegiado })</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      await getUserLugarid()</span>
+<span class="cstat-no" title="statement not covered" >      await addUser()</span>
+<span class="cstat-no" title="statement not covered" >      history.push('/interfazmedico', { lugarid: lugid, num: num_colegiado })</span>
+    } catch (error) {
+<span class="cstat-no" title="statement not covered" >      console.error('Error during sign in:', error)</span>
+<span class="cstat-no" title="statement not covered" >      alert('Error durante el registro. Por favor, intente nuevamente.')</span>
+    }
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
@@ -295,7 +313,7 @@ export default SignIn
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-01T02:48:28.683Z
+                at 2025-11-01T03:27:03.294Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

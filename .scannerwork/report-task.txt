@@ -2,5 +2,5 @@ projectKey=frontend-main
 serverUrl=http://localhost:9000
 serverVersion=25.10.0.114319
 dashboardUrl=http://localhost:9000/dashboard?id=frontend-main
-ceTaskId=13775058-843f-4e3e-a9da-5691cbc7797c
-ceTaskUrl=http://localhost:9000/api/ce/task?id=13775058-843f-4e3e-a9da-5691cbc7797c
+ceTaskId=ba0fd1df-ae6f-4380-8623-73d506230246
+ceTaskUrl=http://localhost:9000/api/ce/task?id=ba0fd1df-ae6f-4380-8623-73d506230246

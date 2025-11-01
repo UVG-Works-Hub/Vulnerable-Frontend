@@ -305,7 +305,11 @@ const MedicoUpdate_mantenimiento = ({ lugarid }) => {
   }, []);
 
   if (!responseData) {
-    return "Loading...";
+    return (
+      <div className={styles}>
+        <p>Loading...</p>
+      </div>
+    );
   }
 
   return (

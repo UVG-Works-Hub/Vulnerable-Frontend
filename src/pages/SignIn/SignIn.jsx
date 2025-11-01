@@ -30,9 +30,9 @@ const SignIn = () => {
     try {
       const response = await Axios.get(`http://localhost:3000/api/v1/usuarios/get_lugarid/${num_colegiado}`)
       const jason = response.data
-      jason.forEach((row) => {
+      for (const row of jason) {
         lugid = row.lugarid
-      })
+      }
       return response.data
     } catch (error) {
       console.error('Error fetching user lugar id:', error)

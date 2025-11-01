@@ -197,7 +197,10 @@ const UsuarioUpdate_mantenimiento = ({ lugid }) => {
   }, [])
 
   if (!responseData) {
-    return 'Loading...'
+    return (
+    <div className={styles}>
+      <p>Loading...</p>
+    </div>)
   }
 
   return (
