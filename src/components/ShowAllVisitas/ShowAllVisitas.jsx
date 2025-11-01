@@ -1,15 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
-import { styles } from './ShowAllVisitas.module.css'
+import { styles } from "./ShowAllVisitas.module.css";
 
 const ShowAllVisitas = ({ json }) => {
   return (
     <div className={styles}>
-      <table style={{
-        width: '100%',
-        border: '1px solid white',
-      }}
+      <table
+        style={{
+          width: "100%",
+          border: "1px solid white",
+        }}
       >
         <tr>
           <th>Nombre del paciente</th>
@@ -25,7 +26,7 @@ const ShowAllVisitas = ({ json }) => {
 
         {json.map((row) => {
           return (
-            <tr>
+            <tr key={row.id}>
               <th>{row.nombre}</th>
               <th>{row.fecha}</th>
               <th>{row.hora}</th>
@@ -36,19 +37,19 @@ const ShowAllVisitas = ({ json }) => {
               <th>{row.medicamentos}</th>
               <th>{row.evolucion}</th>
             </tr>
-          )
+          );
         })}
       </table>
     </div>
-  )
-}
+  );
+};
 
 ShowAllVisitas.propTypes = {
   json: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-}
+};
 
 ShowAllVisitas.defaultProps = {
   json: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-}
+};
 
-export default ShowAllVisitas
+export default ShowAllVisitas;

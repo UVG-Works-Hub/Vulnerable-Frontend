@@ -1,15 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
-import { styles } from './ShowAllUsuarios.module.css'
+import { styles } from "./ShowAllUsuarios.module.css";
 
 const ShowAllUsuarios = ({ json }) => {
   return (
     <div className={styles}>
-      <table style={{
-        width: '100%',
-        border: '1px solid white',
-      }}
+      <table
+        style={{
+          width: "100%",
+          border: "1px solid white",
+        }}
       >
         <tr>
           <th>ID del Usuario</th>
@@ -22,7 +23,7 @@ const ShowAllUsuarios = ({ json }) => {
 
         {json.map((row) => {
           return (
-            <tr>
+            <tr key={row.userid}>
               <th>{row.userid}</th>
               <th>{row.tipo}</th>
               <th>{row.correo}</th>
@@ -30,19 +31,19 @@ const ShowAllUsuarios = ({ json }) => {
               <th>{row.num_colegiado}</th>
               <th>{row.lugarid}</th>
             </tr>
-          )
+          );
         })}
       </table>
     </div>
-  )
-}
+  );
+};
 
 ShowAllUsuarios.propTypes = {
   json: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-}
+};
 
 ShowAllUsuarios.defaultProps = {
   json: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-}
+};
 
-export default ShowAllUsuarios
+export default ShowAllUsuarios;

@@ -1,20 +1,15 @@
-import React from 'react'
-import {
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom'
+import { Switch, Route, Redirect } from "react-router-dom";
 
-import LogIn from './LogIn'
-import SignIn from './SignIn'
-import Welcome from './Welcome'
-import Mantenimiento from './Mantenimiento'
-import InterfazMedico from './InterfazMedico'
-import { ProtectedRoute } from '../routes/protectedRoute'
+import LogIn from "./LogIn";
+import SignIn from "./SignIn";
+import Welcome from "./Welcome";
+import Mantenimiento from "./Mantenimiento";
+import InterfazMedico from "./InterfazMedico";
+import { ProtectedRoute } from "../routes/protectedRoute";
 
 const navigate = (page) => {
-  window.location = `/?route=${page}`
-}
+  globalThis.location = `/?route=${page}`;
+};
 
 const Page = () => {
   // escoger la pagina
@@ -46,8 +41,8 @@ const Page = () => {
         <Redirect to="/login" />
       </Route>
     </Switch>
-  )
-}
+  );
+};
 
-export { navigate }
-export default Page
+export { navigate };
+export default Page;

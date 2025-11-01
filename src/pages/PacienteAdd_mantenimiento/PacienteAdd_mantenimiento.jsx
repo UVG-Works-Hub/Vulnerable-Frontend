@@ -75,12 +75,10 @@ const PacienteAdd_mantenimiento = () => {
     setTelefono(value);
 
     // Validar teléfono en tiempo real
-    if (value.trim() === "") {
+    if (value.trim() === "" || isValidPhone(value)) {
       setTelefonoError("");
-    } else if (!isValidPhone(value)) {
-      setTelefonoError("Teléfono inválido");
     } else {
-      setTelefonoError("");
+      setTelefonoError("Teléfono inválido");
     }
   };
 
@@ -167,12 +165,10 @@ const PacienteAdd_mantenimiento = () => {
     setDPI(value);
 
     // Validar DPI en tiempo real
-    if (value.trim() === "") {
+    if (value.trim() === "" || isValidDPI(value)) {
       setDpiError("");
-    } else if (!isValidDPI(value)) {
-      setDpiError("DPI debe tener exactamente 13 dígitos");
     } else {
-      setDpiError("");
+      setDpiError("DPI debe tener exactamente 13 dígitos");
     }
   };
 
