@@ -30,6 +30,9 @@ const BusquedaMensual = ({ lugarid }) => {
     }
   };
 
+  /**
+   * Handles the click event
+   */
   const handleClick = async () => {
     try {
       await loadReporte();
